@@ -1,0 +1,82 @@
+<div class="content">
+  <AppBarModifier title="Home"/>
+  <div class="total">
+    <h6>Total: {users.length}</h6>
+    <br>
+    {#each users as user}
+    <li>{user.name}</li>
+    {/each}
+  </div>
+</div>
+
+<script>
+  import Http from '@mamba/pos/api/http.js';
+
+  const myRequest = {
+    url: 'https://gorest.co.in/public-api/users',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Cache-Control': 'no-cache',
+    },
+    method: 'GET',
+  };
+
+  export default {
+    components: {
+      Button: '@mamba/button',
+      AppBarModifier: '@mamba/appbar/Modifier.html',
+    },
+    data() {
+      return {
+        users: [],
+      };
+    },
+    oncreate() {
+      console.log('oncreate');
+      this.load();
+    },
+    onupdate() {
+      console.log('onupdate');
+    },
+    ondestroy() {
+      console.log('ondestrory');
+    },
+    onstate({changed, current, previou}) {
+      console.log('changed', changed);
+      console.log('current', current);
+      console.log('previou', previou);
+    },
+    methods: {
+      clickTest() {
+        this.set({
+          users: (this.get().myProp + 1),
+        });
+      },
+      async load() {
+
+        const result = await Http.send(myRequest);
+        this.set({
+          users: JSON.parse(result.body).data,
+        });
+
+      },
+    },
+  };
+</script>
+
+<style type="text/postcss">
+  h6 {
+    font-weight: bold;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .total {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+</style>
