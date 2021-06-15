@@ -3,6 +3,10 @@
   <div class="total">
     <h6>Total: {users.length}</h6>
     <br>
+    <MoneyInput label="Teste"
+                autoFocus="true"
+                forceFocus="true"/>
+    <br>
     {#each users as user}
     <li>{user.name}</li>
     {/each}
@@ -25,6 +29,7 @@
     components: {
       Button: '@mamba/button',
       AppBarModifier: '@mamba/appbar/Modifier.html',
+      MoneyInput: '@mamba/input/Money.html',
     },
     data() {
       return {
