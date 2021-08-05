@@ -1,0 +1,41 @@
+{#if inLoad}
+<div class="load">
+  <h5>Carregando</h5>
+  <ProgressBar/>
+</div>
+{/if}
+
+<script>
+  export default {
+    components: {
+      ProgressBar: '@mamba/progress/ProgressBar',
+    },
+    data() {
+      return {
+        inLoad: false,
+      };
+    },
+  };
+</script>
+
+<style type="text/postcss">
+  .load {
+    z-index: 999999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h5 {
+      text-align: center;
+      font-weight: bold;
+    }
+
+  }
+</style>
